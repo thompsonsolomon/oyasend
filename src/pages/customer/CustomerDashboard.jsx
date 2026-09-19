@@ -218,7 +218,7 @@ function CustomerDashboard() {
 
               <div className="relative z-10">
 
-                <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
+                <div className="mb-8 flex h-12 w-12 TTW items-center justify-center rounded-2xl bg-white/15">
                   <Package size={25} />
                 </div>
 
@@ -435,7 +435,7 @@ function CustomerDashboard() {
 
                 <Link
                   to="/customer/send-package"
-                  className="mt-5 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white"
+                  className="mt-5 inline-flex TTW items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white"
                   style={{ backgroundColor: BRAND.primary }}
                 >
                   <Plus size={17} />

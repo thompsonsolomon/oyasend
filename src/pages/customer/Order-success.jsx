@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react'
 import {
   ArrowLeft,
   CheckCircle2,
+  Clock3,
   MapPin,
   Package,
+  Plus,
   Receipt,
+  User,
 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function OrderSuccess() {
   const navigate = useNavigate()
@@ -275,6 +278,48 @@ function OrderSuccess() {
 
       </main>
 
+  {/* Mobile bottom navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white px-4 py-3 md:hidden">
+
+        <div className="mx-auto flex max-w-md items-center justify-around">
+
+          <Link
+            to="/customer"
+            className="flex flex-col items-center gap-1 text-xs font-bold"
+          >
+            <Package size={20} />
+            Home
+          </Link>
+
+          <Link
+            to="/customer/send-package"
+            className="flex flex-col items-center gap-1 text-xs font-medium text-gray-400"
+          >
+            <Plus size={21} />
+            Send
+          </Link>
+
+          <Link
+            to="/customer/orders"
+            className="flex flex-col items-center gap-1 text-xs font-medium text-gray-400"
+                        style={{ color:"#087443"}}
+
+          >
+            <Clock3 size={20} />
+            Orders
+          </Link>
+
+          <Link
+            to="/customer/profile"
+            className="flex flex-col items-center gap-1 text-xs font-medium text-gray-400"
+          >
+            <User size={20} />
+            Profile
+          </Link>
+
+        </div>
+
+      </nav>
     </div>
   )
 }

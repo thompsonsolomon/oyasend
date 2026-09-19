@@ -25,6 +25,9 @@ import RiderDashboard from '../pages/rider/RidersDashboard'
 import RiderOrders from '../pages/rider/RiderOrders'
 import RiderOrderDetails from '../pages/rider/RiderOrderDetails'
 import RiderProfile from '../pages/rider/RiderProfile'
+import CustomerOrders from '../pages/customer/CustomerOrders'
+import CustomerOrderDetails from '../pages/customer/CustomerOrderDetails'
+import CustomerProfile from '../pages/customer/CustomerProfile'
 
 function AppRoutes() {
   return (
@@ -98,10 +101,22 @@ function AppRoutes() {
                 path="/customer"
                 element={<CustomerDashboard />}
               />
-
+              <Route
+                path="/customer/orders"
+                element={<CustomerOrders />}
+              />
               <Route
                 path="/customer/send-package"
                 element={<SendPackage />}
+              />
+              <Route
+                path="/customer/orders/:id"
+                element={<CustomerOrderDetails />}
+              />
+
+              <Route
+                path="/customer/profile"
+                element={<CustomerProfile />}
               />
 
 
