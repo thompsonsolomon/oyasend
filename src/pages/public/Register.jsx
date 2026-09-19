@@ -4,6 +4,8 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react'
 
 import { registerUser } from '../../services/auth'
 import Logo from '../../components/ui/Logo'
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { db } from '../../config/firebase'
 
 function Register() {
   const navigate = useNavigate()
@@ -28,49 +30,62 @@ function Register() {
     }))
   }
 
-  async function handleSubmit(event) {
-    event.preventDefault()
-    setError('')
+async function handleSubmit(event) {
+  event.preventDefault()
+  setError('')
 
-    if (form.password !== form.confirmPassword) {
-      setError('Passwords do not match.')
-      return
-    }
+  if (form.password !== form.confirmPassword) {
+    setError('Passwords do not match.')
+    return
+  }
 
-    if (form.password.length < 6) {
-      setError('Password must be at least 6 characters.')
-      return
-    }
+  if (form.password.length < 6) {
+    setError('Password must be at least 6 characters.')
+    return
+  }
 
-    try {
-      setLoading(true)
+  try {
+    setLoading(true)
 
-      await registerUser({
+    const registeredUser = await registerUser({
+      fullName: form.fullName,
+      email: form.email,
+      phone: form.phone,
+      password: form.password,
+    })
+
+    // Create the user's Firestore profile
+    await setDoc(
+      doc(db, 'users', registeredUser.uid),
+      {
+        uid: registeredUser.uid,
         fullName: form.fullName,
         email: form.email,
         phone: form.phone,
-        password: form.password,
-      })
-
-      navigate('/customer', {
-        replace: true,
-      })
-    } catch (error) {
-      console.error(error)
-
-      if (error.code === 'auth/email-already-in-use') {
-        setError('An account with this email already exists.')
-      } else if (error.code === 'auth/invalid-email') {
-        setError('Please enter a valid email address.')
-      } else if (error.code === 'auth/weak-password') {
-        setError('Your password is too weak.')
-      } else {
-        setError('Something went wrong. Please try again.')
+        role: 'customer',
+        createdAt: serverTimestamp(),
       }
-    } finally {
-      setLoading(false)
+    )
+
+    navigate('/customer', {
+      replace: true,
+    })
+  } catch (error) {
+    console.error(error)
+
+    if (error.code === 'auth/email-already-in-use') {
+      setError('An account with this email already exists.')
+    } else if (error.code === 'auth/invalid-email') {
+      setError('Please enter a valid email address.')
+    } else if (error.code === 'auth/weak-password') {
+      setError('Your password is too weak.')
+    } else {
+      setError('Something went wrong. Please try again.')
     }
+  } finally {
+    setLoading(false)
   }
+}
 
   return (
     <main className="min-h-screen bg-[#F6F4EC]">

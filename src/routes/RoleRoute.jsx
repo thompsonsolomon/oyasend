@@ -1,16 +1,12 @@
 import { Navigate, Outlet } from 'react-router-dom'
-
 import { useAuth } from '../hooks/useAuth'
 
-
 function RoleRoute({ allowedRoles }) {
-
   const {
     user,
     profile,
     loading,
   } = useAuth()
-
 
   if (loading) {
     return (
@@ -22,12 +18,12 @@ function RoleRoute({ allowedRoles }) {
     )
   }
 
-
+  // Not logged in
   if (!user) {
     return <Navigate to="/login" replace />
   }
 
-
+  // User is logged in but profile hasn't loaded
   if (!profile) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -38,14 +34,25 @@ function RoleRoute({ allowedRoles }) {
     )
   }
 
-
+  // User doesn't have permission for this section
   if (!allowedRoles.includes(profile.role)) {
-    return <Navigate to="/" replace />
-  }
 
+    if (profile.role === 'customer') {
+      return <Navigate to="/customer" replace />
+    }
+
+    if (profile.role === 'rider') {
+      return <Navigate to="/rider" replace />
+    }
+
+    if (profile.role === 'admin') {
+      return <Navigate to="/admin" replace />
+    }
+
+    return <Navigate to="/login" replace />
+  }
 
   return <Outlet />
 }
-
 
 export default RoleRoute

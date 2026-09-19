@@ -197,7 +197,7 @@ function Home() {
 
       <Link
        to="/register"
-       className="rounded-xl bg-[#08752A] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-900/10 transition hover:bg-[#064410]"
+       className="rounded-xl bg-[#08752A] px-5 py-2.5 text-sm font-bold text-white TTW shadow-lg shadow-green-900/10 transition hover:bg-[#064410]"
       >
        Get Started
       </Link>
@@ -320,7 +320,7 @@ function Home() {
 
        <Link
         to="/register"
-        className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#08752A] px-7 py-4 text-sm font-bold text-white shadow-xl shadow-green-900/10 transition hover:bg-[#064410]"
+        className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#08752A] px-7 py-4 text-sm TTW font-bold text-white shadow-xl shadow-green-900/10 transition hover:bg-[#064410]"
        >
         Send a Package
 
@@ -959,7 +959,7 @@ function Home() {
 
       <Link
        to="/register"
-       className="mt-9 inline-flex items-center gap-2 rounded-xl bg-[#08752A] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#064410]"
+       className="mt-9 inline-flex items-center gap-2 rounded-xl TTW bg-[#08752A] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#064410]"
       >
        Create your account
        <ArrowRight size={17} />
@@ -1001,7 +1001,7 @@ function Home() {
 
       <Link
        to="/register"
-       className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#08752A] px-7 py-4 text-sm font-bold text-white"
+       className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#08752A] TTW px-7 py-4 text-sm font-bold text-white"
       >
        Get Started
        <ArrowRight size={18} />

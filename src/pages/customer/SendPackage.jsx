@@ -732,7 +732,7 @@ function SendPackage() {
                   <Input
                     label="Receiver's phone number"
                     name="receiverPhone"
-                    type="tel"
+                    type="number"
                     value={form.receiverPhone}
                     onChange={handleChange}
                     placeholder="0801 234 5678"

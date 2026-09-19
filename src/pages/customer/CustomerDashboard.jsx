@@ -35,8 +35,8 @@ function CustomerDashboard() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
+      console.log(currentUser)
     })
-
     return () => unsubscribe()
   }, [])
 
@@ -222,7 +222,7 @@ function CustomerDashboard() {
                   <Package size={25} />
                 </div>
 
-                <h3 className="text-2xl font-black">
+                <h3 className="text-2xl text-white font-black">
                   Send a Package
                 </h3>
 
@@ -230,7 +230,7 @@ function CustomerDashboard() {
                   Send a package from one location to another quickly and safely.
                 </p>
 
-                <div className="mt-6 inline-flex items-center gap-2 text-sm font-bold">
+                <div className="mt-6 text-white/75   inline-flex items-center gap-2 text-sm font-bold">
                   Create delivery
                   <ArrowRight
                     size={17}

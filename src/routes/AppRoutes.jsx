@@ -10,7 +10,7 @@ import CustomerLayout from '../layouts/CustomerLayout'
 import RiderLayout from '../layouts/RiderLayout'
 import AdminLayout from '../layouts/AdminLayout'
 
-import ProtectedRoute from './ProtectedRoute'
+import ProtectedRoute, { GuestRoute } from './ProtectedRoute'
 import RoleRoute from './RoleRoute'
 import Register from '../pages/public/Register'
 import Login from '../pages/public/Login'
@@ -21,6 +21,10 @@ import DispatchOrderReview from '../pages/customer/DispatchOrderReview'
 import Payment from '../pages/customer/Payment'
 import OrderSuccess from '../pages/customer/Order-success'
 import Home from '../pages/public/LandingPage'
+import RiderDashboard from '../pages/rider/RidersDashboard'
+import RiderOrders from '../pages/rider/RiderOrders'
+import RiderOrderDetails from '../pages/rider/RiderOrderDetails'
+import RiderProfile from '../pages/rider/RiderProfile'
 
 function AppRoutes() {
   return (
@@ -30,7 +34,7 @@ function AppRoutes() {
 
         {/* ================= PUBLIC ================= */}
 
-        <Route element={<PublicLayout />}>
+        {/* <Route element={<PublicLayout />}>
 
           <Route
             path="/"
@@ -54,6 +58,32 @@ function AppRoutes() {
             element={<ForgotPassword />}
           />
 
+        </Route> */}
+
+        <Route element={<GuestRoute />}>
+          <Route element={<PublicLayout />}>
+
+            <Route
+              path="/"
+              element={<Home />}
+            />
+
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+
+            <Route
+              path="/register"
+              element={<Register />}
+            />
+
+            <Route
+              path="/forgot-password"
+              element={<ForgotPassword />}
+            />
+
+          </Route>
         </Route>
 
 
@@ -103,9 +133,17 @@ function AppRoutes() {
 
               <Route
                 path="/rider"
-                element={<div>Rider Dashboard</div>}
+                element={<RiderDashboard />}
               />
-
+              <Route path="/rider/orders" element={<RiderOrders />} />
+              <Route
+                path="/rider/orders/:id"
+                element={<RiderOrderDetails />}
+              />
+              <Route
+                path="/rider/profile"
+                element={<RiderProfile />}
+              />
             </Route>
 
           </Route>

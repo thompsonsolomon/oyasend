@@ -4,6 +4,8 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react'
 
 import { loginUser } from '../../services/auth'
 import Logo from '../../components/ui/Logo'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../../config/firebase'
 
 function Login() {
   const navigate = useNavigate()
@@ -26,6 +28,50 @@ function Login() {
     }))
   }
 
+  // async function handleSubmit(event) {
+  //   event.preventDefault()
+
+  //   setError('')
+  //   setLoading(true)
+
+  //   try {
+  //     await loginUser({
+  //       email: form.email,
+  //       password: form.password,
+  //     })
+
+  //     const destination = location.state?.from?.pathname || '/customer'
+
+  //     navigate(destination, {
+  //       replace: true,
+  //     })
+  //   } catch (error) {
+  //     console.error(error)
+
+  //     switch (error.code) {
+  //       case 'auth/invalid-credential':
+  //       case 'auth/wrong-password':
+  //       case 'auth/user-not-found':
+  //         setError('Invalid email or password.')
+  //         break
+
+  //       case 'auth/invalid-email':
+  //         setError('Please enter a valid email address.')
+  //         break
+
+  //       case 'auth/user-disabled':
+  //         setError('This account has been disabled.')
+  //         break
+
+  //       default:
+  //         setError('Unable to login. Please try again.')
+  //     }
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
+
   async function handleSubmit(event) {
     event.preventDefault()
 
@@ -33,12 +79,39 @@ function Login() {
     setLoading(true)
 
     try {
-      await loginUser({
+      const loggedInUser = await loginUser({
         email: form.email,
         password: form.password,
       })
 
-      const destination = location.state?.from?.pathname || '/customer'
+      // Get the user's profile from Firestore
+      const userDoc = await getDoc(
+        doc(db, 'users', loggedInUser.uid)
+      )
+
+      if (!userDoc.exists()) {
+        setError('Your account profile could not be found.')
+        return
+      }
+
+      const userData = userDoc.data()
+      const role = userData.role
+
+      // Make sure the account has a valid role
+      if (!['customer', 'rider', 'admin'].includes(role)) {
+        setError('Your account does not have a valid role.')
+        return
+      }
+
+      // Redirect based on role
+      const roleRoutes = {
+        customer: '/customer',
+        rider: '/rider',
+        admin: '/admin',
+      }
+
+      const destination =
+        location.state?.from?.pathname || roleRoutes[role]
 
       navigate(destination, {
         replace: true,
@@ -68,7 +141,6 @@ function Login() {
       setLoading(false)
     }
   }
-
   return (
     <main className="min-h-screen bg-[#F6F4EC]">
       <div className="grid min-h-screen lg:grid-cols-2">
@@ -87,7 +159,7 @@ function Login() {
               to="/"
               className="inline-flex w-fit items-center gap-2"
             >
-            <Logo />
+              <Logo />
 
               <span className="text-2xl font-black tracking-tight text-white">
                 OYA<span className="text-[#F4D500]">SEND</span>
@@ -153,7 +225,7 @@ function Login() {
                 to="/"
                 className="flex items-center gap-2"
               >
-                         <Logo />
+                <Logo />
 
 
                 <span className="text-xl font-black text-[#06121B]">
