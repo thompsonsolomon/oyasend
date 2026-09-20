@@ -156,7 +156,7 @@ function CustomerDashboard() {
 
             <Link
               to="/customer/profile"
-              className="flex h-10 w-10 items-center justify-center rounded-full text-white"
+              className="flex h-10 w-10 items-center TTW justify-center rounded-full text-white"
               style={{ backgroundColor: BRAND.dark }}
             >
               <User size={18} />
